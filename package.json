@@ -1,7 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "mocha"
   },
   "engines": {
     "node": "8.9.x"
