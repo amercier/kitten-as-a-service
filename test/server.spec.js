@@ -6,27 +6,27 @@ const startServer = require('../server');
 const port = 4000;
 const baseURL = `http://localhost:${port}`;
 
-describe('server.js', function() {
+describe('server.js', () => {
   const url = `${baseURL}/`;
 
   let server;
 
-  beforeEach(function() {
+  beforeEach(() => {
     server = startServer();
     server.listen(port);
   });
 
-  it('should return 200', async function() {
+  it('should return 200', async () => {
     const { status } = await get(url);
     expect(status).to.equal(200);
   });
 
-  it('should say "Hello World"', async function() {
+  it('should say "Hello World"', async () => {
     const { data } = await get(url);
     expect(data).to.equal('Hello World\n');
   });
 
-  afterEach(function() {
+  afterEach(() => {
     server.close();
   });
 });
