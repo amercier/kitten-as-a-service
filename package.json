@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "test": "eslint . && mocha"
+    "test": "eslint . && nyc --all mocha"
   },
   "engines": {
     "node": "8.9.x"
@@ -14,6 +14,15 @@
     "eslint": "^4.12.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
-    "mocha": "^4.0.1"
+    "mocha": "^4.0.1",
+    "nyc": "^11.3.0"
+  },
+  "nyc": {
+    "all": true,
+    "reporter": [
+      "lcovonly",
+      "html",
+      "text"
+    ]
   }
 }
