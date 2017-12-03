@@ -15,3 +15,11 @@ script:
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
   - rm ./cc-test-reporter
+deploy:
+  provider: heroku
+  app: kitten-as-a-service
+  api_key: $HEROKU_AUTH_TOKEN
+  on:
+    branch: deploy-heroku
+after_deploy:
+  - curl -L http://kitten-as-a-service.herokuapp.com/
