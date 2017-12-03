@@ -1,6 +1,8 @@
 kitten-as-a-service
 ===================
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/amercier/kitten-as-a-service.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://img.shields.io/travis/amercier/kitten-as-a-service/master.svg)](https://travis-ci.org/amercier/kitten-as-a-service)
 [![Dependency Status](http://img.shields.io/gemnasium/amercier/kitten-as-a-service.svg)](https://gemnasium.com/amercier/kitten-as-a-service)
 [![Test Coverage](https://img.shields.io/codecov/c/github/amercier/kitten-as-a-service/master.svg)](https://codecov.io/github/amercier/kitten-as-a-service?branch=master)
