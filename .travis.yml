@@ -2,9 +2,7 @@ language: node_js
 node_js: --lts
 script:
 - yarn test
-cache:
-  directories:
-  - $HOME/.nvm
+cache: yarn
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
@@ -15,3 +13,11 @@ script:
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
   - rm ./cc-test-reporter
+deploy:
+  provider: heroku
+  app: kitten-as-a-service
+  api_key: $HEROKU_AUTH_TOKEN
+  on:
+    branch: master
+after_deploy:
+  - curl --fail --silent --show-error https://kitten-as-a-service.herokuapp.com/ >/dev/null

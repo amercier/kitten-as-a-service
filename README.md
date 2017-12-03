@@ -13,7 +13,7 @@ kitten-as-a-service
 Demo
 ----
 
-https://kitten.amercier.com/
+http://kitten.amercier.com/
 
 
 License
