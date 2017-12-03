@@ -18,6 +18,6 @@ deploy:
   app: kitten-as-a-service
   api_key: $HEROKU_AUTH_TOKEN
   on:
-    branch: deploy-heroku
+    branch: master
 after_deploy:
   - curl --fail --silent --show-error https://kitten-as-a-service.herokuapp.com/ >/dev/null
