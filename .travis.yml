@@ -22,4 +22,4 @@ deploy:
   on:
     branch: deploy-heroku
 after_deploy:
-  - curl -L http://kitten-as-a-service.herokuapp.com/
+  - curl --fail --silent --show-error https://kitten-as-a-service.herokuapp.com/ >/dev/null
