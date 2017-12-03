@@ -5,7 +5,7 @@
     "test": "eslint . && nyc --all mocha"
   },
   "engines": {
-    "node": "8.9.x"
+    "node": ">=8.9.x"
   },
   "engineStrict": true,
   "devDependencies": {
