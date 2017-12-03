@@ -1,10 +1,29 @@
 {
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "eslint . && nyc --all mocha"
   },
   "engines": {
     "node": "8.9.x"
   },
-  "engineStrict": true
+  "engineStrict": true,
+  "devDependencies": {
+    "axios": "^0.17.1",
+    "chai": "^4.1.2",
+    "codecov": "^3.0.0",
+    "eslint": "^4.12.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "mocha": "^4.0.1",
+    "nyc": "^11.3.0"
+  },
+  "nyc": {
+    "all": true,
+    "reporter": [
+      "lcovonly",
+      "html",
+      "text"
+    ]
+  }
 }
