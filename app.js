@@ -1,4 +1,4 @@
-const startServer = require('./server');
+const startServer = require('./lib/server');
 
 const port = process.env.PORT || 3000;
 const config = {

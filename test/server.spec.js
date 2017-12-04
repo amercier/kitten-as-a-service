@@ -1,7 +1,7 @@
 const { it, describe } = require('mocha');
 const { expect } = require('chai');
 const { get } = require('axios');
-const startServer = require('../server');
+const startServer = require('../lib/server');
 
 const port = 4000;
 const baseURL = `http://localhost:${port}`;
