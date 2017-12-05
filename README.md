@@ -1,11 +1,7 @@
 kitten-as-a-service
 ===================
 
-Web service written in NodeJS that displays a kitten image randomly picked from Bing Images.
-
-It serves mainly two URLs:
-- `/`: a web page, written in HTML/CSS/JS
-- `/kitten.jpg`: the endpoint for the random image, which can be used programatically
+> Web service written in NodeJS that displays a kitten image randomly picked from Bing Images.
 
 [![Build Status](https://img.shields.io/travis/amercier/kitten-as-a-service/master.svg)](https://travis-ci.org/amercier/kitten-as-a-service)
 [![Dependency Status](http://img.shields.io/gemnasium/amercier/kitten-as-a-service.svg)](https://gemnasium.com/amercier/kitten-as-a-service)
@@ -15,6 +11,9 @@ It serves mainly two URLs:
 
 <sup><sub>_Created with [npm-p&#97;ckage-skeleton](https://github.com/&#97;mercier/npm-p&#97;ckage-skeleton)._</sup></sub>
 
+The web service exposes mainly two URLs:
+- `/`: a web page, written in HTML/CSS/JS
+- `/kitten.jpg`: the endpoint for the random image, which can be used programatically
 
 Demo
 ----
