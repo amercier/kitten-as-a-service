@@ -18,10 +18,13 @@
     <meta itemprop="description" content="Display a random kitten picture from the Internets.">
     <meta itemprop="image" content="/kitten.jpg">
     <style>
+html {
+  cursor: pointer;
+}
+
 body {
   margin: 0;
   background: #000 url() no-repeat 50% 50%;
-  cursor: pointer;
   user-select: none;
 }
 
@@ -54,8 +57,10 @@ img {
   filter: blur(10px);
 }
 
-.cover img {
-  object-fit: cover;
+@media screen and (orientation:landscape) {
+  .fullscreen img {
+    object-fit: cover;
+  }
 }
     </style>
   </head>
@@ -137,12 +142,12 @@ body.addEventListener('click', doubleClickHandler(
   function() {
     body.classList.remove('failed');
     body.classList.add('loading');
-    img.removeAttribute('');
+    img.removeAttribute('src');
     loadNewPicture();
   },
   function() {
-    body.classList.toggle('cover');
-    toggleFullscreen(body);
+    toggleFullscreen(document.documentElement);
+    body.classList.toggle('fullscreen');
   }
 ));
     </script>
