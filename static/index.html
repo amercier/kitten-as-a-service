@@ -31,6 +31,7 @@ body {
 
 .loading {
   background-image: url('spinner.gif');
+  cursor: wait;
 }
 
 .failed::after {
@@ -154,9 +155,11 @@ var lastClickTime;
 body.addEventListener('click', doubleClickHandler(
   200,
   function() {
-    body.classList.remove('failed');
-    body.classList.add('loading');
-    loadNewPicture();
+    if (!body.classList.contains('loading')) {
+      body.classList.remove('failed');
+      body.classList.add('loading');
+      loadNewPicture();
+    }
   },
   function() {
     toggleFullscreen(document.documentElement);
