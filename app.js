@@ -2,8 +2,7 @@ const startServer = require('./lib/server');
 
 const port = process.env.PORT || 3000;
 const config = {
-  cx: process.env.GOOGLE_CX,
-  apiKey: process.env.GOOGLE_API_KEY,
+  apiKey: process.env.MICROSOFT_AZURE_API_KEY,
 };
 
 startServer(config).listen(port, () => {
