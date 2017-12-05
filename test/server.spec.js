@@ -44,7 +44,7 @@ describe('lib/server.js', () => {
     server = await listen(app, testPort);
 
     const dataApp = express();
-    dataApp.use(express.static(join(__dirname, '/data')));
+    dataApp.use(express.static(join(__dirname, 'data')));
     dataServer = await listen(dataApp, dataPort);
   });
 

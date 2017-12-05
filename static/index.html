@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Random Kitten</title>
+    <style>
+body {
+  margin: 0;
+  background: #000 url() no-repeat 50% 50%;
+  cursor: pointer;
+}
+
+.loading {
+  background-image: url('spinner.gif');
+}
+
+.failed::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: sans-serif;
+  color: #fff;
+  content: 'Failed to load cute kitten picture :\'('
+}
+
+img {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  object-fit: contain;
+  transform-origin: 50% 50%;
+  transition: transform ease-out 300ms, opacity ease-out 1000ms, filter ease-out 1000ms;
+}
+
+.loading img {
+  opacity: 0;
+  transform: scale(0.0001);
+  filter: blur(10px);
+}
+    </style>
+  </head>
+  <body class="loading">
+    <img id="img" src="/image" alt="Random kitten picture">
+    <script>
+var body = document.body;
+var img = document.getElementById('img');
+
+img.addEventListener('load', function() {
+  body.classList.remove('loading');
+});
+
+img.addEventListener('error', function() {
+  body.classList.remove('loading');
+  body.classList.add('failed');
+});
+
+body.addEventListener('click', function() {
+  body.classList.remove('failed');
+  body.classList.add('loading');
+  img.src = '';
+  img.src = '/image?time=' + new Date().getTime();
+});
+    </script>
+  </body>
+</html>
