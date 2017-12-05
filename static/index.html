@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Random kitten picture</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Random Kitten</title>
+    <link rel="manifest" href="/manifest.json">
     <meta name="description" content="Display a random kitten picture from the Internets.">
     <link rel="icon" type="image/png" sizes="256x256" href="/favicon.png">
     <link rel="apple-touch-icon" href="/favicon.png">
-    <meta property="og:title" content="Random kitten picture">
+    <meta property="og:title" content="Random Kitten">
     <meta property="og:description" content="Display a random kitten picture from the Internets.">
     <meta property="og:image" content="/kitten.jpg">
-    <meta property="twitter:title" content="Random kitten picture">
+    <meta property="twitter:title" content="Random Kitten">
     <meta property="twitter:description" content="Display a random kitten picture from the Internets.">
     <meta property="twitter:image" content="/kitten.jpg">
-    <meta itemprop="name" content="Random kitten picture">
+    <meta itemprop="name" content="Random Kitten">
     <meta itemprop="description" content="Display a random kitten picture from the Internets.">
     <meta itemprop="image" content="/kitten.jpg">
     <style>
@@ -78,7 +79,7 @@ img {
     </style>
   </head>
   <body>
-    <img id="img" src="/kitten.jpg" alt="Random kitten picture">
+    <img id="img" src="/kitten.jpg" alt="Random Kitten">
     <script>
 function debounce(fn, wait, immediate) {
   var timeout;
@@ -155,7 +156,6 @@ body.addEventListener('click', doubleClickHandler(
   function() {
     body.classList.remove('failed');
     body.classList.add('loading');
-    img.removeAttribute('src');
     loadNewPicture();
   },
   function() {

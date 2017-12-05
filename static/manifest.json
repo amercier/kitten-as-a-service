@@ -1,0 +1,12 @@
+{
+  "short_name": "Kitten",
+  "name": "Random Kitten",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    }
+  ],
+  "start_url": "/"
+}
