@@ -53,6 +53,10 @@ img {
   transform: scale(0.0001) rotate(60deg);
   filter: blur(10px);
 }
+
+.cover img {
+  object-fit: cover;
+}
     </style>
   </head>
   <body>
@@ -71,6 +75,42 @@ function debounce(fn, wait, immediate) {
   };
 }
 
+function doubleClickHandler(delay, onClick, onDoubleClick) {
+  var lastTap = Date.now();
+  var tapTimeout;
+
+  function clearTapTimeout() {
+    clearTimeout(tapTimeout);
+    tapTimeout = null;
+  }
+
+  return function handleClickOrDoubleClick(event) {
+    event.preventDefault();
+
+    // Double-click
+    if (tapTimeout) {
+      clearTapTimeout();
+      onDoubleClick(event);
+    }
+    else { // Otherwise, simple click
+      tapTimeout = setTimeout(function() {
+        clearTapTimeout();
+        onClick(event);
+      }, delay);
+    }
+  }
+}
+
+function toggleFullscreen(el) {
+  var doc = el.ownerDocument;
+  var never = function() { return false };
+  var fullscreen = doc.fullscreen || doc.webkitIsFullScreen || doc.mozFullScreen || !!doc.msFullscreenElement || false;
+  var requestFullscreen = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen || never;
+  var exitFullscreen = doc.exitFullscreen || doc.webkitExitFullscreen || doc.mozCancelFullScreen || doc.msExitFullscreen || never;
+
+  fullscreen ? exitFullscreen.call(doc) : requestFullscreen.call(el);
+}
+
 var body = document.body;
 body.classList.add('loading');
 
@@ -78,7 +118,7 @@ var img = document.getElementById('img');
 
 var loadNewPicture = debounce(function() {
   img.src = '/kitten.jpg?time=' + new Date().getTime();
-}, 500);
+}, 300);
 
 img.addEventListener('load', function() {
   body.classList.remove('loading');
@@ -91,13 +131,20 @@ img.addEventListener('error', function() {
   }
 });
 
-body.addEventListener('click', function() {
-  // img.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
-  body.classList.remove('failed');
-  body.classList.add('loading');
-  img.removeAttribute('');
-  loadNewPicture();
-});
+var lastClickTime;
+body.addEventListener('click', doubleClickHandler(
+  200,
+  function() {
+    body.classList.remove('failed');
+    body.classList.add('loading');
+    img.removeAttribute('');
+    loadNewPicture();
+  },
+  function() {
+    body.classList.toggle('cover');
+    toggleFullscreen(body);
+  }
+));
     </script>
   </body>
 </html>
