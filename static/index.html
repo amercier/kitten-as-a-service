@@ -4,7 +4,19 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Random Kitten</title>
+    <title>Random kitten picture</title>
+    <meta name="description" content="Display a random kitten picture from the Internets.">
+    <link rel="icon" type="image/png" sizes="256x256" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon.png">
+    <meta property="og:title" content="Random kitten picture">
+    <meta property="og:description" content="Display a random kitten picture from the Internets.">
+    <meta property="og:image" content="/kitten.jpg">
+    <meta property="twitter:title" content="Random kitten picture">
+    <meta property="twitter:description" content="Display a random kitten picture from the Internets.">
+    <meta property="twitter:image" content="/kitten.jpg">
+    <meta itemprop="name" content="Random kitten picture">
+    <meta itemprop="description" content="Display a random kitten picture from the Internets.">
+    <meta itemprop="image" content="/kitten.jpg">
     <style>
 body {
   margin: 0;
@@ -37,31 +49,53 @@ img {
 
 .loading img {
   opacity: 0;
-  transform: scale(0.0001);
+  transform: scale(0.0001) rotate(60deg);
   filter: blur(10px);
 }
     </style>
   </head>
-  <body class="loading">
-    <img id="img" src="/image" alt="Random kitten picture">
+  <body>
+    <img id="img" src="/kitten.jpg" alt="Random kitten picture">
     <script>
+function debounce(fn, wait, immediate) {
+  var timeout;
+  return function() {
+    var context = this, args = arguments;
+    clearTimeout(timeout);
+    timeout = setTimeout(function() {
+      timeout = null;
+      if (!immediate) fn.apply(context, args);
+    }, wait);
+    if (immediate && !timeout) fn.apply(context, args);
+  };
+}
+
 var body = document.body;
+body.classList.add('loading');
+
 var img = document.getElementById('img');
+
+var loadNewPicture = debounce(function() {
+  img.src = '/kitten.jpg?time=' + new Date().getTime();
+}, 500);
 
 img.addEventListener('load', function() {
   body.classList.remove('loading');
 });
 
 img.addEventListener('error', function() {
-  body.classList.remove('loading');
-  body.classList.add('failed');
+  if (img.src !== '') {
+    body.classList.remove('loading');
+    body.classList.add('failed');
+  }
 });
 
 body.addEventListener('click', function() {
+  // img.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
   body.classList.remove('failed');
   body.classList.add('loading');
-  img.src = '';
-  img.src = '/image?time=' + new Date().getTime();
+  img.removeAttribute('');
+  loadNewPicture();
 });
     </script>
   </body>
