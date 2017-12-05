@@ -32,8 +32,7 @@ function makeSuccessfulBingImageApiStub(body) {
   });
 }
 
-describe('lib/server.js', () => {
-  const url = `${testBaseURL}/`;
+describe('kitten-as-a-service', () => {
   const apiKey = 'API KEY STUB';
 
   let server;
@@ -48,25 +47,29 @@ describe('lib/server.js', () => {
     dataServer = await listen(dataApp, dataPort);
   });
 
-  describe('when API returns one jpeg image', () => {
-    beforeEach(() => {
-      bingApiStub = makeSuccessfulBingImageApiStub({
-        value: [{
-          contentUrl: `${dataBaseURL}/kitten.jpg`,
-          encodingFormat: 'jpeg',
-          thumbnail: {},
-        }],
+  describe('/kitten.jpg', () => {
+    const url = `${testBaseURL}/kitten.jpg`;
+
+    describe('when API returns one jpeg image', () => {
+      beforeEach(() => {
+        bingApiStub = makeSuccessfulBingImageApiStub({
+          value: [{
+            contentUrl: `${dataBaseURL}/kitten.jpg`,
+            encodingFormat: 'jpeg',
+            thumbnail: {},
+          }],
+        });
       });
-    });
 
-    it('should return 200', async () => {
-      const { status } = await get(url);
-      expect(status).to.equal(200);
-    });
+      it('should return 200', async () => {
+        const { status } = await get(url);
+        expect(status).to.equal(200);
+      });
 
-    it('should set a Content-Type header', async () => {
-      const { headers } = await get(url);
-      expect(headers['content-type']).to.equal('image/jpeg');
+      it('should set a Content-Type header', async () => {
+        const { headers } = await get(url);
+        expect(headers['content-type']).to.equal('image/jpeg');
+      });
     });
   });
 
