@@ -44,6 +44,10 @@ body {
   content: 'Failed to load cute kitten picture :\'('
 }
 
+a {
+  display: block;
+}
+
 img {
   display: block;
   width: 100vw;
@@ -51,6 +55,10 @@ img {
   object-fit: contain;
   transform-origin: 50% 50%;
   transition: transform ease-out 200ms, opacity ease-out 1000ms, filter ease-out 1000ms;
+}
+
+img:not([src]) {
+  display: none;
 }
 
 .loading img {
@@ -80,8 +88,22 @@ img {
     </style>
   </head>
   <body>
-    <img id="img" src="/kitten.jpg" alt="Random Kitten">
+    <img id="img" data-src="/kitten.jpg" alt="Random Kitten">
+    <noscript>
+      <a href="/">
+        <img id="img" src="/kitten.jpg" alt="Random Kitten">
+      </a>
+    </noscript>
     <script>
+
+function domReady(fn) {
+  if (document.readyState !== 'complete') {
+    setTimeout(fn, 0);
+  } else {
+    document.addEventListener('DOMContentLoaded', fn);
+  }
+}
+
 function debounce(fn, wait, immediate) {
   var timeout;
   return function() {
@@ -131,41 +153,47 @@ function toggleFullscreen(el) {
   fullscreen ? exitFullscreen.call(doc) : requestFullscreen.call(el);
 }
 
-var body = document.body;
-body.classList.add('loading');
+domReady(function() {
+  var body = document.body;
+  body.classList.add('loading');
 
-var img = document.getElementById('img');
+  var img = document.getElementById('img');
 
-var loadNewPicture = debounce(function() {
-  img.src = '/kitten.jpg?time=' + new Date().getTime();
-}, 300);
+  function loadNewPictureNow() {
+    img.src = img.getAttribute('data-src') + '?time=' + new Date().getTime();
+  }
 
-img.addEventListener('load', function() {
-  body.classList.remove('loading');
-});
+  var loadNewPicture = debounce(loadNewPictureNow, 300);
 
-img.addEventListener('error', function() {
-  if (img.src !== '') {
+  img.addEventListener('load', function() {
     body.classList.remove('loading');
-    body.classList.add('failed');
-  }
-});
+  });
 
-var lastClickTime;
-body.addEventListener('click', doubleClickHandler(
-  200,
-  function() {
-    if (!body.classList.contains('loading')) {
-      body.classList.remove('failed');
-      body.classList.add('loading');
-      loadNewPicture();
+  img.addEventListener('error', function() {
+    if (img.src !== '') {
+      body.classList.remove('loading');
+      body.classList.add('failed');
     }
-  },
-  function() {
-    toggleFullscreen(document.documentElement);
-    body.classList.toggle('fullscreen');
-  }
-));
+  });
+
+  var lastClickTime;
+  body.addEventListener('click', doubleClickHandler(
+    200,
+    function() {
+      if (!body.classList.contains('loading')) {
+        body.classList.remove('failed');
+        body.classList.add('loading');
+        loadNewPicture();
+      }
+    },
+    function() {
+      toggleFullscreen(document.documentElement);
+      body.classList.toggle('fullscreen');
+    }
+  ));
+
+  loadNewPictureNow();
+});
     </script>
   </body>
 </html>
