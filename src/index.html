@@ -18,74 +18,7 @@
     <meta itemprop="name" content="Random Kitten">
     <meta itemprop="description" content="Display a random kitten picture from the Internets.">
     <meta itemprop="image" content="/kitten.jpg">
-    <style>
-html {
-  cursor: pointer;
-}
-
-body {
-  margin: 0;
-  background: #000 url() no-repeat 50% 50%;
-  user-select: none;
-}
-
-.loading {
-  background-image: url('spinner.gif');
-  cursor: wait;
-}
-
-.failed::after {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: sans-serif;
-  color: #fff;
-  content: 'Failed to load cute kitten picture :\'('
-}
-
-a {
-  display: block;
-}
-
-img {
-  display: block;
-  width: 100vw;
-  height: 100vh;
-  object-fit: contain;
-  transform-origin: 50% 50%;
-  transition: transform ease-out 200ms, opacity ease-out 1000ms, filter ease-out 1000ms;
-}
-
-img:not([src]) {
-  display: none;
-}
-
-.loading img {
-  opacity: 0;
-  transform: scale(0.0001) rotate(60deg);
-  filter: blur(10px);
-}
-
-@media screen and (orientation:landscape) {
-  .fullscreen img {
-    object-fit: cover;
-  }
-}
-
-@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-  .loading {
-    background-size: auto 48px;
-  }
-}
-
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .loading {
-    background-size: auto 32px;
-  }
-}
-
-    </style>
+    <link rel="stylesheet" href="./css/app.css" inline>
   </head>
   <body>
     <img id="img" data-src="/kitten.jpg" alt="Random Kitten">
