@@ -24,4 +24,5 @@ deploy:
   on:
     branch: master
 after_deploy:
+  - sleep 10
   - curl --fail --silent --show-error https://kitten-as-a-service.herokuapp.com/ >/dev/null || travis_terminate 1
