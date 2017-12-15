@@ -13,6 +13,9 @@ script:
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
   - rm ./cc-test-reporter
+before_deploy:
+  - yarn run build
+  - sed -i '/^\/dist\/$/d' .gitignore
 deploy:
   provider: heroku
   app: kitten-as-a-service
