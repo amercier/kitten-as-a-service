@@ -10,7 +10,10 @@ before_script:
 script:
   - yarn test
   - codecov
-after_script:
+after_success:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - rm ./cc-test-reporter
+after_failure:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
   - rm ./cc-test-reporter
 before_deploy:
