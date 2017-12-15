@@ -20,6 +20,7 @@ deploy:
   provider: heroku
   app: kitten-as-a-service
   api_key: $HEROKU_AUTH_TOKEN
+  skip_cleanup: true
   on:
     branch: master
 after_deploy:
