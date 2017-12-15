@@ -32,6 +32,7 @@
     "eslint-plugin-import": "^2.8.0",
     "gulp": "^3.9.1",
     "gulp-cli": "^1.4.0",
+    "gulp-html-minifier": "^0.1.8",
     "gulp-inline-source": "^3.1.0",
     "gulp-sass": "^3.1.0",
     "gulp-uglify": "^3.0.0",

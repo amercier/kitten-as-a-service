@@ -2,6 +2,7 @@ const del = require('del');
 const gulp = require('gulp');
 const babel = require('gulp-babel');
 const csso = require('gulp-csso');
+const htmlMinifier = require('gulp-html-minifier');
 const inlineSource = require('gulp-inline-source');
 const sass = require('gulp-sass');
 const uglify = require('gulp-uglify');
@@ -30,6 +31,7 @@ gulp.task('build:scss', ['copy'], () => gulp.src(`${destDir}/scss/*.scss`)
 
 gulp.task('build:html', ['build:js', 'build:scss'], () => gulp.src(`${destDir}/**/*.html`)
   .pipe(inlineSource({ compress: false }))
+  .pipe(htmlMinifier({ collapseWhitespace: true }))
   .pipe(gulp.dest(destDir)));
 
 gulp.task('build:clean', ['build:html'], () => del([`${destDir}/{css,js,scss}`]));
