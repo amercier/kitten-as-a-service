@@ -6,6 +6,7 @@ const htmlMinifier = require('gulp-html-minifier');
 const inlineSource = require('gulp-inline-source');
 const sass = require('gulp-sass');
 const uglify = require('gulp-uglify');
+const pump = require('pump');
 const named = require('vinyl-named');
 const webpack = require('webpack-stream');
 
@@ -14,27 +15,35 @@ const destDir = './dist';
 
 gulp.task('clean', () => del([`${destDir}/**`]));
 
-gulp.task('copy', ['clean'], () => gulp.src(`${sourceDir}/**`)
-  .pipe(gulp.dest(destDir)));
+gulp.task('copy', ['clean'], cb => pump([
+  gulp.src(`${sourceDir}/**`),
+  gulp.dest(destDir),
+], cb));
 
-gulp.task('build:js', ['copy'], () => gulp.src(`${destDir}/js/*.js`)
-  .pipe(babel({ presets: ['env'] }))
-  .pipe(named())
-  .pipe(webpack())
-  .pipe(uglify())
-  .pipe(gulp.dest(`${destDir}/js`)));
+gulp.task('build:js', ['copy'], cb => pump([
+  gulp.src(`${destDir}/js/*.js`),
+  named(),
+  webpack(),
+  babel({ presets: ['latest'] }),
+  uglify(),
+  gulp.dest(`${destDir}/js`),
+], cb));
 
-gulp.task('build:scss', ['copy'], () => gulp.src(`${destDir}/scss/*.scss`)
-  .pipe(sass().on('error', sass.logError))
-  .pipe(csso())
-  .pipe(gulp.dest(`${destDir}/css`)));
+gulp.task('build:scss', ['copy'], cb => pump([
+  gulp.src(`${destDir}/scss/*.scss`),
+  sass().on('error', sass.logError),
+  csso(),
+  gulp.dest(`${destDir}/css`),
+], cb));
 
-gulp.task('build:html', ['build:js', 'build:scss'], () => gulp.src(`${destDir}/**/*.html`)
-  .pipe(inlineSource({ compress: false }))
-  .pipe(htmlMinifier({ collapseWhitespace: true }))
-  .pipe(gulp.dest(destDir)));
+gulp.task('build:html', ['build:js', 'build:scss'], cb => pump([
+  gulp.src(`${destDir}/**/*.html`),
+  inlineSource({ compress: false }),
+  htmlMinifier({ collapseWhitespace: true }),
+  gulp.dest(destDir),
+], cb));
 
-gulp.task('build:clean', ['build:html'], () => del([`${destDir}/{css,js,scss}`]));
+gulp.task('build:clean', ['build:html'], () => del([`${destDir}lol/{css,js,scss}`]));
 
 gulp.task('build', ['build:clean']);
 gulp.task('default', ['build']);
