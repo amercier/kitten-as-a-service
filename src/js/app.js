@@ -1,12 +1,6 @@
 /* eslint-disable */
 
-function domReady(fn) {
-  if (document.readyState !== 'complete') {
-    setTimeout(fn, 0);
-  } else {
-    document.addEventListener('DOMContentLoaded', fn);
-  }
-}
+import domready from 'domready';
 
 function debounce(fn, wait, immediate) {
   var timeout;
@@ -57,7 +51,7 @@ function toggleFullscreen(el) {
   fullscreen ? exitFullscreen.call(doc) : requestFullscreen.call(el);
 }
 
-domReady(function() {
+domready(function() {
   var body = document.body;
   body.classList.add('loading');
 
