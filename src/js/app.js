@@ -1,14 +1,11 @@
-/* eslint-disable */
-
 import domready from 'domready';
 import debounce from 'lodash.debounce';
 import screenfull from 'screenfull';
 
 domready(() => {
-
   // Fullscreen
   const html = document.documentElement;
-  const body = document.body;
+  const { body } = document;
 
   if (screenfull.enabled) {
     body.classList.add('fullscreen-enabled');
@@ -25,7 +22,7 @@ domready(() => {
   body.classList.add('loading');
 
   function loadNewPictureNow() {
-    img.src = img.getAttribute('data-src') + '?time=' + new Date().getTime();
+    img.src = `${img.getAttribute('data-src')}?time=${new Date().getTime()}`;
   }
 
   const loadNewPicture = debounce(loadNewPictureNow, 300);
