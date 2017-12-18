@@ -4,20 +4,8 @@ import screenfull from 'screenfull';
 import Hammer from 'hammerjs';
 
 domready(() => {
-  // Fullscreen
-  const html = document.documentElement;
-  const { body } = document;
-
-  if (screenfull.enabled) {
-    body.classList.add('fullscreen-enabled');
-    document.getElementById('btn-fullscreen').addEventListener('click', (event) => {
-      event.stopPropagation();
-      screenfull.toggle(html);
-    });
-    screenfull.on('change', () => html.classList[screenfull.isFullscreen ? 'add' : 'remove']('fullscreen'));
-  }
-
   // Picture
+  const { body } = document;
   const img = document.getElementById('img');
 
   body.classList.add('loading');
@@ -91,4 +79,14 @@ domready(() => {
   });
 
   loadNewPictureNow();
+
+  // Fullscreen
+  const html = document.documentElement;
+  if (screenfull.enabled) {
+    body.classList.add('fullscreen-enabled');
+    hammer.on('tap', () => {
+      screenfull.toggle(html);
+    });
+    screenfull.on('change', () => html.classList[screenfull.isFullscreen ? 'add' : 'remove']('fullscreen'));
+  }
 });
