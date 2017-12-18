@@ -101,11 +101,13 @@ domready(() => {
 
   // Fullscreen
   const html = document.documentElement;
-  if (screenfull.enabled) {
-    body.classList.add('fullscreen-enabled');
-    hammer.on('tap', () => {
-      screenfull.toggle(html);
-    });
-    screenfull.on('change', () => html.classList[screenfull.isFullscreen ? 'add' : 'remove']('fullscreen'));
-  }
+  hammer.on('tap', () => {
+    if (html.classList.contains('fullscreen')) {
+      html.classList.remove('fullscreen');
+      screenfull.exit();
+    } else {
+      html.classList.add('fullscreen');
+      screenfull.request();
+    }
+  });
 });
