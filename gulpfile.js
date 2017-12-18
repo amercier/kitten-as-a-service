@@ -6,6 +6,7 @@ const htmlMinifier = require('gulp-html-minifier');
 const inlineSource = require('gulp-inline-source');
 const sass = require('gulp-sass');
 const uglify = require('gulp-uglify');
+const sassInlineImages = require('sass-inline-image');
 const pump = require('pump');
 const named = require('vinyl-named');
 const webpack = require('webpack-stream');
@@ -31,7 +32,9 @@ gulp.task('build:js', ['copy'], cb => pump([
 
 gulp.task('build:scss', ['copy'], cb => pump([
   gulp.src(`${destDir}/scss/*.scss`),
-  sass().on('error', sass.logError),
+  sass({
+    functions: sassInlineImages({ base: destDir }),
+  }).on('error', sass.logError),
   csso(),
   gulp.dest(`${destDir}/css`),
 ], cb));
@@ -43,7 +46,7 @@ gulp.task('build:html', ['build:js', 'build:scss'], cb => pump([
   gulp.dest(destDir),
 ], cb));
 
-gulp.task('build:clean', ['build:html'], () => del([`${destDir}lol/{css,js,scss}`]));
+gulp.task('build:clean', ['build:html'], () => del([`${destDir}/{css,js,scss,spinner.gif}`]));
 
 gulp.task('build', ['build:clean']);
 gulp.task('default', ['build']);

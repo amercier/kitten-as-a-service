@@ -13,7 +13,7 @@ body {
 }
 
 .loading {
-  background-image: url('spinner.gif');
+  background-image: url(inline-image('spinner.gif'));
   cursor: wait;
 }
 
