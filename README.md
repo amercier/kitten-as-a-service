@@ -13,7 +13,11 @@ kitten-as-a-service
 
 The web service exposes mainly two URLs:
 - `/`: a web page, written in HTML/CSS/JS
-- `/kitten.jpg`: the endpoint for the random image, which can be used programatically
+- `/kitten-{size}.jpg`: the endpoint for the random image, which can be used programatically, where `{size}` is one of the following:
+    - `small`: 480p or more, 30kB to 100kB
+    - `medium`: 720p or more, 50kB to 300kB
+    - `large`: 1080p or more, 100kb to 500kB
+    - `huge`: 2160p or more, 500kB to 5MB
 
 Demo
 ----
