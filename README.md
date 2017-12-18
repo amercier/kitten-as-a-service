@@ -25,7 +25,7 @@ Demo
 - Web: visit http://kitten.amercier.com/
 - Download a random kitten image programatically:
 ```bash
-curl --progress-bar -L http://kitten.amercier.com/kitten.jpg -o kitten.jpg
+curl --progress-bar -L http://kitten.amercier.com/kitten-huge.jpg -o kitten-huge.jpg
 ```
 
 Requirements
