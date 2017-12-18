@@ -6,6 +6,10 @@ body {
   margin: 0;
   background: #000 none no-repeat 50% 50%;
   user-select: none;
+
+  &.animated {
+    transition: transform 100ms ease-out;
+  }
 }
 
 .loading {
@@ -34,6 +38,7 @@ img {
   object-fit: contain;
   transform-origin: 50% 50%;
   transition: transform ease-out 200ms, opacity ease-out 1000ms, filter ease-out 1000ms;
+  pointer-events: none;
 }
 
 img:not([src]) {
