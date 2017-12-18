@@ -10,8 +10,24 @@ domready(() => {
 
   body.classList.add('loading');
 
+  function getPictureSize() {
+    const { downlink } =
+      (navigator.connection || navigator.mozConnection || navigator.webkitConnection);
+    if (!downlink) {
+      return 'medium';
+    } else if (downlink > 16) {
+      return 'huge';
+    } else if (downlink > 4) {
+      return 'large';
+    } else if (downlink > 1) {
+      return 'medium';
+    }
+    return 'small';
+  }
+
   function loadNewPictureNow() {
-    img.src = `${img.getAttribute('data-src')}?time=${new Date().getTime()}`;
+    const src = img.getAttribute('data-src').replace('{size}', getPictureSize());
+    img.src = `${src}?time=${new Date().getTime()}`;
   }
 
   const loadNewPicture = debounce(loadNewPictureNow, 300);
@@ -85,11 +101,13 @@ domready(() => {
 
   // Fullscreen
   const html = document.documentElement;
-  if (screenfull.enabled) {
-    body.classList.add('fullscreen-enabled');
-    hammer.on('tap', () => {
-      screenfull.toggle(html);
-    });
-    screenfull.on('change', () => html.classList[screenfull.isFullscreen ? 'add' : 'remove']('fullscreen'));
-  }
+  hammer.on('tap', () => {
+    if (html.classList.contains('fullscreen')) {
+      html.classList.remove('fullscreen');
+      screenfull.exit();
+    } else {
+      html.classList.add('fullscreen');
+      screenfull.request();
+    }
+  });
 });

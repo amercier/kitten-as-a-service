@@ -40,6 +40,12 @@ img {
   transform-origin: 50% 50%;
   transition: transform ease-out 200ms, opacity ease-out 1000ms, filter ease-out 1000ms;
   pointer-events: none;
+
+  @at-root {
+    .failed & {
+      display: none;
+    }
+  }
 }
 
 img:not([src]) {
@@ -50,42 +56,6 @@ img:not([src]) {
   opacity: 0;
   transform: scale(0.0001) rotate(60deg);
   filter: blur(10px);
-}
-
-#btn-fullscreen {
-  display: none; // displayed only when .fullscreen-enabled is set
-  cursor: pointer;
-  opacity: 0.2;
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  border: none;
-  background: rgba(0,0,0,0.15) url(fullscreen-on.svg) no-repeat top left;
-  box-shadow: 0 0 32px 4px rgba(0,0,0,0.2);
-  color: #fff;
-  width: 32px;
-  height: 32px;
-  text-indent: -1000px;
-  overflow: hidden;
-  background-size: 100%;
-  transition: opacity 250ms ease-out;
-
-  &:hover,
-  &:focus,
-  &:target {
-    outline: none;
-    opacity: 1;
-  }
-
-  @at-root {
-    .fullscreen-enabled & {
-      display: block;
-    }
-
-    .fullscreen & {
-      background-image: url(fullscreen-off.svg);
-    }
-  }
 }
 
 @media screen and (orientation:landscape) {

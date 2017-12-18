@@ -47,14 +47,14 @@ describe('kitten-as-a-service', () => {
     dataServer = await listen(dataApp, dataPort);
   });
 
-  describe('/kitten.jpg', () => {
-    const url = `${testBaseURL}/kitten.jpg`;
+  describe('/kitten-huge.jpg', () => {
+    const url = `${testBaseURL}/kitten-huge.jpg`;
 
     describe('when API returns one jpeg image', () => {
       beforeEach(() => {
         bingApiStub = makeSuccessfulBingImageApiStub({
           value: [{
-            contentUrl: `${dataBaseURL}/kitten.jpg`,
+            contentUrl: `${dataBaseURL}/kitten-huge.jpg`,
             encodingFormat: 'jpeg',
             thumbnail: {},
           }],
