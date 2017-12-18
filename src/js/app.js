@@ -12,7 +12,7 @@ domready(() => {
 
   function getPictureSize() {
     const { downlink } =
-      (navigator.connection || navigator.mozConnection || navigator.webkitConnection);
+      (navigator.connection || navigator.mozConnection || navigator.webkitConnection || {});
     if (!downlink) {
       return 'medium';
     } else if (downlink > 16) {
