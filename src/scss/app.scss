@@ -1,5 +1,6 @@
 html {
   cursor: pointer;
+  overflow-x: hidden;
 }
 
 body {
@@ -8,7 +9,7 @@ body {
   user-select: none;
 
   &.animated {
-    transition: transform 100ms ease-out;
+    transition: transform 100ms ease-out, opacity 250ms ease-out;
   }
 }
 

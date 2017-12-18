@@ -31,6 +31,8 @@ domready(() => {
 
   const startX = 0; // Math.round((window.innerWidth - body.offsetWidth) / 2);
   let translateX = startX;
+  const { abs, min } = Math;
+  const totalWidth = body.offsetWidth;
 
   const reqAnimationFrame =
     window[Hammer.prefixed(window, 'requestAnimationFrame')]
@@ -38,6 +40,7 @@ domready(() => {
 
   function updateElementTransform() {
     const value = `translate3d(${translateX}px, 0, 0)`;
+    body.style.opacity = min(1 - (abs(translateX) / totalWidth), 1);
     body.style.webkitTransform = value;
     body.style.mozTransform = value;
     body.style.transform = value;
