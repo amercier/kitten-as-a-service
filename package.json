@@ -42,7 +42,7 @@
     "lodash.debounce": "^4.0.8",
     "mocha": "^4.0.1",
     "nyc": "^11.3.0",
-    "proxyquire": "^1.8.0",
+    "proxyquire": "^2.0.0",
     "pump": "^2.0.0",
     "sass-inline-image": "^0.0.3",
     "screenfull": "^3.3.2",
