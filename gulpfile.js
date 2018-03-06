@@ -16,35 +16,35 @@ const destDir = './dist';
 
 gulp.task('clean', () => del([`${destDir}/**`]));
 
-gulp.task('copy', ['clean'], cb => pump([
+gulp.task('copy', ['clean'], () => pump([
   gulp.src(`${sourceDir}/**`),
   gulp.dest(destDir),
-], cb));
+]));
 
-gulp.task('build:js', ['copy'], cb => pump([
+gulp.task('build:js', ['copy'], () => pump([
   gulp.src(`${destDir}/js/*.js`),
   named(),
   webpack(),
   babel({ presets: ['latest'] }),
   uglify(),
   gulp.dest(`${destDir}/js`),
-], cb));
+]));
 
-gulp.task('build:scss', ['copy'], cb => pump([
+gulp.task('build:scss', ['copy'], () => pump([
   gulp.src(`${destDir}/scss/*.scss`),
   sass({
     functions: sassInlineImages({ base: destDir }),
   }).on('error', sass.logError),
   csso(),
   gulp.dest(`${destDir}/css`),
-], cb));
+]));
 
-gulp.task('build:html', ['build:js', 'build:scss'], cb => pump([
+gulp.task('build:html', ['build:js', 'build:scss'], () => pump([
   gulp.src(`${destDir}/**/*.html`),
   inlineSource({ compress: false }),
   htmlMinifier({ collapseWhitespace: true }),
   gulp.dest(destDir),
-], cb));
+]));
 
 gulp.task('build:clean', ['build:html'], () => del([`${destDir}/{css,js,scss,spinner.gif}`]));
 
