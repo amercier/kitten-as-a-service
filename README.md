@@ -4,7 +4,6 @@ kitten-as-a-service
 > Web service written in NodeJS that displays a kitten image randomly picked from Bing Images.
 
 [![Build Status](https://img.shields.io/travis/amercier/kitten-as-a-service/master.svg)](https://travis-ci.org/amercier/kitten-as-a-service)
-[![Dependency Status](http://img.shields.io/gemnasium/amercier/kitten-as-a-service.svg)](https://gemnasium.com/amercier/kitten-as-a-service)
 [![Test Coverage](https://img.shields.io/codecov/c/github/amercier/kitten-as-a-service/master.svg)](https://codecov.io/github/amercier/kitten-as-a-service?branch=master)
 [![Code Climate](https://img.shields.io/codeclimate/maintainability/amercier/kitten-as-a-service.svg)](https://codeclimate.com/github/amercier/kitten-as-a-service)
 [![Greenkeeper](https://badges.greenkeeper.io/amercier/kitten-as-a-service.svg)](https://github.com/amercier/kitten-as-a-service/issues?q=label%3Agreenkeeper)
