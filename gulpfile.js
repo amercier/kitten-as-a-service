@@ -25,7 +25,7 @@ gulp.task('build:js', ['copy'], () => pump([
   gulp.src(`${destDir}/js/*.js`),
   named(),
   webpack(),
-  babel({ presets: ['latest'] }),
+  babel({ presets: ['@babel/preset-env'] }),
   uglify(),
   gulp.dest(`${destDir}/js`),
 ]));
