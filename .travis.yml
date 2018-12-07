@@ -15,11 +15,11 @@ script:
 after_success:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
   - rm ./cc-test-reporter
+  - yarn build # Prevents failing PRs to be merged accidentally
 after_failure:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
   - rm ./cc-test-reporter
 before_deploy:
-  - yarn run build
   - sed -i '/^\/dist\/$/d' .gitignore
 deploy:
   provider: heroku
