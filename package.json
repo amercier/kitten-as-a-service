@@ -3,7 +3,8 @@
   "scripts": {
     "build": "gulp",
     "start": "node app.js",
-    "test": "eslint . && NODE_ENV=test nyc --all mocha"
+    "lint": "eslint .",
+    "test": "NODE_ENV=test nyc --all mocha"
   },
   "engines": {
     "node": ">=8.9.x"
