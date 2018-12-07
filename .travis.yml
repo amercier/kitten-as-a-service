@@ -1,7 +1,8 @@
 language: node_js
-node_js: 8
-script:
-- yarn test
+node_js:
+  - node
+  - lts/*
+  - lts/carbon
 cache: yarn
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
@@ -14,11 +15,11 @@ script:
 after_success:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
   - rm ./cc-test-reporter
+  - yarn build # Prevents failing PRs to be merged accidentally
 after_failure:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
   - rm ./cc-test-reporter
 before_deploy:
-  - yarn run build
   - sed -i '/^\/dist\/$/d' .gitignore
 deploy:
   provider: heroku
