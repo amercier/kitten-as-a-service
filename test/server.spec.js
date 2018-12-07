@@ -1,4 +1,3 @@
-const { it, describe } = require('mocha');
 const { expect } = require('chai');
 const { get } = require('axios');
 const express = require('express');
@@ -19,7 +18,6 @@ function listen(app, port) {
 
 describe('kitten-as-a-service', () => {
   const bingApiStub = {};
-
   let server;
   let dataServer;
 
