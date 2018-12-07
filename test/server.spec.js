@@ -1,14 +1,8 @@
-const { it, describe } = require('mocha');
 const { expect } = require('chai');
 const { get } = require('axios');
 const express = require('express');
 const { join } = require('path');
-const proxyquire = require('proxyquire');
 
-let bingApiStub = null;
-proxyquire('../lib/server', {
-  'node-bing-api': (...args) => bingApiStub(...args),
-});
 const makeApp = require('../lib/server');
 
 const testPort = 4000;
@@ -22,24 +16,13 @@ function listen(app, port) {
   });
 }
 
-function makeSuccessfulBingImageApiStub(body) {
-  return () => ({
-    images: (q, options, callback) => {
-      setTimeout(() => {
-        callback(null, { body: JSON.stringify(body) }, body);
-      }, 0);
-    },
-  });
-}
-
 describe('kitten-as-a-service', () => {
-  const apiKey = 'API KEY STUB';
-
+  const bingApiStub = {};
   let server;
   let dataServer;
 
   beforeEach(async () => {
-    const app = makeApp({ apiKey });
+    const app = makeApp({ bingApi: () => bingApiStub, apiKey: 'API KEY STUB' });
     server = await listen(app, testPort);
 
     const dataApp = express();
@@ -52,13 +35,19 @@ describe('kitten-as-a-service', () => {
 
     describe('when API returns one jpeg image', () => {
       beforeEach(() => {
-        bingApiStub = makeSuccessfulBingImageApiStub({
+        const body = {
           value: [{
             contentUrl: `${dataBaseURL}/kitten-huge.jpg`,
             encodingFormat: 'jpeg',
             thumbnail: {},
           }],
-        });
+        };
+
+        bingApiStub.images = (q, options, callback) => {
+          setTimeout(() => {
+            callback(null, { body: JSON.stringify(body) }, body);
+          }, 0);
+        };
       });
 
       it('should return 200', async () => {
