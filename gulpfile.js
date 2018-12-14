@@ -8,6 +8,7 @@ const sass = require('gulp-sass');
 const uglify = require('gulp-uglify');
 const sassInlineImages = require('sass-inline-image');
 const named = require('vinyl-named');
+const pump = require('pump');
 const webpack = require('webpack-stream');
 
 const sourceDir = './src';
@@ -18,33 +19,41 @@ function clean() {
 }
 
 function copy() {
-  return gulp.src(`${sourceDir}/**`)
-    .pipe(gulp.dest(destDir));
+  return pump(
+    gulp.src(`${sourceDir}/**`),
+    gulp.dest(destDir),
+  );
 }
 
 function scripts() {
-  return gulp.src(`${destDir}/js/*.js`)
-    .pipe(named())
-    .pipe(webpack({ mode: 'production' }))
-    .pipe(babel({ presets: ['@babel/preset-env'] }))
-    .pipe(uglify())
-    .pipe(gulp.dest(`${destDir}/js`));
+  return pump(
+    gulp.src(`${destDir}/js/*.js`),
+    named(),
+    webpack({ mode: 'production' }),
+    babel({ presets: ['@babel/preset-env'] }),
+    uglify(),
+    gulp.dest(`${destDir}/js`),
+  );
 }
 
 function styles() {
-  return gulp.src(`${destDir}/scss/*.scss`)
-    .pipe(sass({
+  return pump(
+    gulp.src(`${destDir}/scss/*.scss`),
+    sass({
       functions: sassInlineImages({ base: destDir }),
-    }).on('error', sass.logError))
-    .pipe(csso())
-    .pipe(gulp.dest(`${destDir}/css`));
+    }).on('error', sass.logError),
+    csso(),
+    gulp.dest(`${destDir}/css`),
+  );
 }
 
 function html() {
-  return gulp.src(`${destDir}/**/*.html`)
-    .pipe(inlineSource({ compress: false }))
-    .pipe(htmlMinifier({ collapseWhitespace: true }))
-    .pipe(gulp.dest(destDir));
+  return pump(
+    gulp.src(`${destDir}/**/*.html`),
+    inlineSource({ compress: false }),
+    htmlMinifier({ collapseWhitespace: true }),
+    gulp.dest(destDir),
+  );
 }
 
 function cleanAfterBuild() {
