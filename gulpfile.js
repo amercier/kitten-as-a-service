@@ -24,7 +24,7 @@ gulp.task('copy', ['clean'], () => pump([
 gulp.task('build:js', ['copy'], () => pump([
   gulp.src(`${destDir}/js/*.js`),
   named(),
-  webpack(),
+  webpack({ mode: 'production' }),
   babel({ presets: ['@babel/preset-env'] }),
   uglify(),
   gulp.dest(`${destDir}/js`),
