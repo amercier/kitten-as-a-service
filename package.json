@@ -44,7 +44,7 @@
     "lodash.debounce": "^4.0.8",
     "pump": "^3.0.0",
     "sass-inline-image": "^0.0.3",
-    "screenfull": "^3.3.3",
+    "screenfull": "^4.0.0",
     "vinyl-named": "^1.1.0",
     "webpack-stream": "^5.2.1"
   },
