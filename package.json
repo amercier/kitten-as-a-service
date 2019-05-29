@@ -13,7 +13,7 @@
   "dependencies": {
     "console-progress": "^0.1.2",
     "express": "^4.16.4",
-    "node-bing-api": "^4.0.0",
+    "node-bing-api": "^4.0.1",
     "progress": "^2.0.3",
     "promise-retry": "^1.1.1",
     "random-int": "^2.0.0",
