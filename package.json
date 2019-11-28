@@ -7,7 +7,7 @@
     "test": "jest"
   },
   "engines": {
-    "node": ">=8.9.x"
+    "node": ">=10.14.x"
   },
   "engineStrict": true,
   "dependencies": {
